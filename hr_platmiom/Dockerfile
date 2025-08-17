@@ -30,7 +30,7 @@ RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r re
 COPY . ${WORK_DIR}
 
 # Создайте папку, если её нет
-RUN mkdir -p ${WORK_DIR}/static/ && chmod -R og+w ${WORK_DIR}/static/
+RUN mkdir -p ${WORK_DIR}/static/
 
 # Даем доступ к папке со статикой
 RUN chmod -R og+w ${WORK_DIR}/static/
@@ -39,4 +39,4 @@ RUN chmod -R og+w ${WORK_DIR}/static/
 USER ${USER}
 
 # Запускаем entrypoint (вместо запуска сервера)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT ["sh", "/usr/src/app/entrypoint.sh"]

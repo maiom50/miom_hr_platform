@@ -6,15 +6,11 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key')
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
-DEBUG = os.getenv('DEBUG', 'True') == 'False'
+DEBUG = os.environ.get("DEBUG") in ('1', 'True')
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') or [
-    '127.0.0.1',
-    'localhost',
-    'ваш-домен.ру'
-]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","127.0.0.1").split(",")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -66,8 +62,12 @@ WSGI_APPLICATION = 'hr_platmiom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'postgres'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PASSWORD': os.getenv('DB_PASS', 'postgres'),
+        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
+        'PORT': os.getenv('DB_PORT', 5432),
     }
 }
 
