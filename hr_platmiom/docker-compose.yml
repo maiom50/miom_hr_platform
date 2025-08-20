@@ -1,7 +1,7 @@
 services:
   web:
     build:
-      context: ./djangotutorial
+      context: ./hr_platmiom
     environment:
       DB_PASS: ${DB_PASS}
       DB_USER: ${DB_USER}
@@ -20,7 +20,7 @@ services:
     depends_on:
       - web
     volumes:
-      - ./djangotutorial/static:/var/www/static
+      - ./hr_platmiom/static:/var/www/static
 
   postgres:
     image: postgres:16.9
